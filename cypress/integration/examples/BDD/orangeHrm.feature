@@ -15,21 +15,23 @@ Feature: OrangeHrm  end to end flows
     Then I can see the "Employee Information" card
     When I select the "Add Employee" navigation bar item
     And I insert the user's first name "Evgenia", middle name "Zenya" and last name "Chatzi"
-    And I copy the employee id 
+    And I copy the employee id test
     And I click the "Save" button
     Then trying something
     Then I can see that the user "Evgenia Chatzi" is successfuly created
-    When I select the nationality as "Greek"
-    And I select date of birth "20"
-    And I save my changes
+    When I select "Greek" from the "Nationality" dropdown 
+    And I select "Single" from the "Marital Status" dropdown 
+    And I select the "Female" gender
+    And I click the save button with index "0"
     And I copy the personal details
-    When I select the "Add Employee" navigation bar item
-    Then I can see my newly created user and the copied details match the results
-    When I delete the user I just created
-    Then I can no longer see the user
+    When I select the "Employee List" navigation bar item
+    Then I select my newly created user "Evgenia"
+    And I can see the copied details match the values
+    # When I delete the user I just created 
+    # Then I can no longer see the user
 
 
-    # apload code on github
+    # apload code on github done
     # finish the above steps
     # tags
     # sections 16, 17, 20

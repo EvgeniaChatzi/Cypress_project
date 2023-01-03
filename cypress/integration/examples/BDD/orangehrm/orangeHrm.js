@@ -1,4 +1,5 @@
 import { When, Given, Then } from "@badeball/cypress-cucumber-preprocessor";
+// import { includes } from "cypress/types/lodash";
 import OrangeHomePage from "../../../pageObjects/orangeHomePage";
 import OrangePimPage from "../../../pageObjects/orangePimPage";
 
@@ -63,15 +64,68 @@ When(
   }
 );
 
-When(/^I copy the employee id$/, function () {
+When(/^I copy the employee id test$/, function () {
   cy.get(".user-form-header-text").then((id) => {
     const idtext = id.text().trim();
 
     cy.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", idtext);
-    cy.wrap(idtext).as("idtext");
+    cy.wrap(idtext).as("idtextt");
   });
 });
 
 When(/^trying something$/, function () {
-  cy.log("its workinggggggggg", this.idtext);
+  cy.log("its workinggggggggg", this.idtextt);
+});
+
+Then(
+  /^I can see that the user "(.*)" is successfuly created$/,
+  function (user) {
+    orangePimPage.getUserNameSelector().should(($el) => {
+      const text = $el.text();
+
+      expect(text).to.include(user);
+      // expect(text).not.to.include("bar");
+    });
+  }
+);
+
+When(/^I select "(.*)" from the "(.*)" dropdown$/, function (item, dropdown) {
+  orangePimPage.getDropdownByName(dropdown).click();
+  cy.contains(item).click({ force: true });
+});
+
+When(/^I select the "(.*)" gender$/, function (gender) {
+  orangePimPage.getGenderRadioButton(gender).click({ force: true });
+});
+
+When(/^I click the save button with index "(.*)"$/, function (index) {
+  orangePimPage.getSaveButtonByIndex(index).click();
+});
+
+When(/^I copy the personal details$/, function () {
+  cy.get(
+    ".orangehrm-vertical-padding:nth-of-type(1) .oxd-grid-item--gutters:nth-of-type(1) [tabindex]"
+  ).then((item) => {
+    const nationalityText = item.text().trim();
+
+    cy.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>", nationalityText);
+    cy.wrap(nationalityText).as("nationality");
+  });
+});
+
+When(/^I select my newly created user "(.*)"$/, function (user) {
+  orangePimPage.getEmployeesNamesSelector().each((el, index, $list) => {
+    const text = el.find("div").text();
+    if (text.includes(user)) {
+      // cy.wrap(el).parent().click();
+      orangePimPage.getEmployeesNamesSelector().eq(index).click();
+    }
+  });
+});
+
+Then(/^I can see the copied details match the values"$/, function () {
+  const national = this.nationality;
+  cy.get(
+    " .orangehrm-vertical-padding:nth-of-type(1) .oxd-grid-item--gutters:nth-of-type(1) [tabindex]"
+  ).should("have.text", national);
 });
