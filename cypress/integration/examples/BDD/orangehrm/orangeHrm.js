@@ -123,9 +123,27 @@ When(/^I select my newly created user "(.*)"$/, function (user) {
   });
 });
 
-Then(/^I can see the copied details match the values"$/, function () {
+Then(/^I can see the copied details match the values$/, function () {
   const national = this.nationality;
   cy.get(
     " .orangehrm-vertical-padding:nth-of-type(1) .oxd-grid-item--gutters:nth-of-type(1) [tabindex]"
   ).should("have.text", national);
+});
+
+Then(/^I delete the user I just created$/, function () {
+  orangePimPage.getEmployeesNamesSelector().each((el, index, $list) => {
+    const text = el.find("div").text();
+    if (text.includes("Evgenia")) {
+      // cy.wrap(el).parent().click();
+      orangePimPage.getDeleteButton().eq(index).click({ force: true });
+    }
+  });
+
+  orangePimPage.getDeleteButtonInModal().click();
+});
+
+Then(/^I can no longer see the user$/, function () {
+  cy.get("[role] .oxd-table-card [role='row']")
+    .contains("Evgenia")
+    .should("not.exist");
 });

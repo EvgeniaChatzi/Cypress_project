@@ -27,8 +27,9 @@ Feature: OrangeHrm  end to end flows
     When I select the "Employee List" navigation bar item
     Then I select my newly created user "Evgenia"
     And I can see the copied details match the values
-    # When I delete the user I just created 
-    # Then I can no longer see the user
+    When I select the "Employee List" navigation bar item
+    Then I delete the user I just created 
+    Then I can no longer see the user
 
 
     # apload code on github done

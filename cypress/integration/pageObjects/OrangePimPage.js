@@ -44,6 +44,14 @@ class OrangePimPage {
   getEmployeesNamesSelector() {
     return cy.get("[role] .oxd-table-card [role] [role='cell']:nth-of-type(3)");
   }
+
+  getDeleteButton() {
+    return cy.get(".oxd-icon.bi-trash");
+  }
+
+  getDeleteButtonInModal() {
+    return cy.get(".oxd-button--label-danger");
+  }
 }
 
 export default OrangePimPage;
