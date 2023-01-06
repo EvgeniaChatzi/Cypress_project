@@ -30,21 +30,3 @@ Feature: OrangeHrm  end to end flows
     When I select the "Employee List" navigation bar item
     Then I delete the user I just created 
     Then I can no longer see the user
-
-
-    # apload code on github done
-    # finish the above steps
-    # tags
-    # sections 16, 17, 20
-    # watch a github mini course
-    # postman course
-    # update linkedin
-
-
- 
-
-
-
-
-
-  
