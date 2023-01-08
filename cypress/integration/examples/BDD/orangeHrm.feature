@@ -1,16 +1,13 @@
 Feature: OrangeHrm  end to end flows
 
 
-    Scenario: OrangeHrm login
+    Background: OrangeHrm login
     Given I open the "https://opensource-demo.orangehrmlive.com/" website
     When I insert a "Admin" username and "admin123" password
     And I click the "Login" button
     Then I validate that I am logged in 
 
     Scenario: Adding an employee and PIM page validations
-    Given I open the "https://opensource-demo.orangehrmlive.com/" website
-    When I insert a "Admin" username and "admin123" password
-    And I click the "Login" button
     When I click the "PIM" sidebar menu item
     Then I can see the "Employee Information" card
     When I select the "Add Employee" navigation bar item
